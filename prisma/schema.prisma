@@ -1,0 +1,24 @@
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Book {
+  id              String @id @default(uuid())
+  title           String
+  author          String
+  publicationYear Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// if i had more time i would make author its own model, Author
+// this would have various benefits such as
+// being able to update Author in one location and see updates across relevant books
+// being able to search for an Author name while creating/updating a Book
